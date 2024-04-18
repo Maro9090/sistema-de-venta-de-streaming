@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Credenciales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            margin-bottom: 10px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"], input[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Taskbar styles */
+        .top-bar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .top-bar nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-bar nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        .top-bar nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Gestión de Credenciales</h1>
+        <nav>
+            <ul>
+                <li><a href="/home">Inicio</a></li>
+                <li><a href="{{ url_for('cliente') }}">Clientes</a></li>
+                <li><a href="{{ url_for('servicios') }}">Servicios</a></li>
+                <li><a href="#">Cuentas</a></li>
+                <li><a href="{{ url_for('ventas_form') }}">Ventas</a></li>
+                <li><a href="#">Alertas</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <h2>Credenciales</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Correo</th>
+            <th>Contraseña</th>
+            <th>Producto ID</th>
+        </tr>
+        <!-- Aquí se mostrarán las credenciales -->
+        {% for credencial in credenciales %}
+        <tr>
+            <td>{{ credencial[0] }}</td>
+            <td>{{ credencial[1] }}</td>
+            <td>{{ credencial[2] }}</td>
+            <td>{{ credencial[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Agregar Credencial</h2>
+    <form action="/agregar_credencial" method="POST">
+        <label for="correo">Correo:</label>
+        <input type="text" id="correo" name="correo">
+        <label for="contrasena">Contraseña:</label>
+        <input type="text" id="contrasena" name="contrasena">
+        <label for="producto_id">Producto ID:</label>
+        <input type="text" id="producto_id" name="producto_id">
+        <input type="submit" value="Agregar Credencial">
+    </form>
+
+    <h2>Editar Credencial</h2>
+    <form action="/editar_credencial" method="POST">
+        <label for="credencial_id">ID de la Credencial a Editar:</label>
+        <input type="text" id="credencial_id" name="credencial_id">
+        <label for="nuevo_correo">Nuevo Correo:</label>
+        <input type="text" id="nuevo_correo" name="nuevo_correo">
+        <label for="nueva_contrasena">Nueva Contraseña:</label>
+        <input type="text" id="nueva_contrasena" name="nueva_contrasena">
+        <label for="nuevo_producto_id">Nuevo Producto ID:</label>
+        <input type="text" id="nuevo_producto_id" name="nuevo_producto_id">
+        <input type="submit" value="Editar Credencial">
+    </form>
+</body>
+</html>
